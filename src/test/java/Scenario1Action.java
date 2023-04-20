@@ -29,19 +29,17 @@ public class Scenario1Action {
         Thread.sleep(2000);
 
         //Hold mouse to "Gear" menu
-        WebElement menuGear = driver.findElement(By.xpath("/html/body/div/div/div/div[2]/nav/ul/li[4]/a"));
+        WebElement menuGear = driver.findElement(By.xpath("//li[@class='level0 nav-4 category-item level-top parent ui-menu-item']/a"));
         new Actions(driver).moveToElement(menuGear).perform();
-        Thread.sleep(2000);
         //Click on "Bags " menu
-        WebElement menuBags = driver.findElement(By.xpath("/html/body/div/div/div/div[2]/nav/ul/li[4]/ul/li/a"));
+        WebElement menuBags = driver.findElement(By.xpath("//li[@class='level1 nav-4-1 category-item first ui-menu-item']/a"));
         menuBags.click();
-        Thread.sleep(2000);
 
         String expectedTitle = "Bags - Gear";
         String actualTitle = driver.getTitle();
 
         Assert.assertEquals(actualTitle, expectedTitle);
-        Thread.sleep(2000);
+
         driver.quit();
     }
 }
