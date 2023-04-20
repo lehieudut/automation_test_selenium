@@ -29,10 +29,10 @@ public class Scenario1Action {
         Thread.sleep(2000);
 
         //Hold mouse to "Gear" menu
-        WebElement menuGear = driver.findElement(By.xpath("//li[@class='level0 nav-4 category-item level-top parent ui-menu-item']/a"));
+        WebElement menuGear = driver.findElement(By.xpath("//a[@role='menuitem']//span[contains(text(),'Gear')]"));
         new Actions(driver).moveToElement(menuGear).perform();
         //Click on "Bags " menu
-        WebElement menuBags = driver.findElement(By.xpath("//li[@class='level1 nav-4-1 category-item first ui-menu-item']/a"));
+        WebElement menuBags = driver.findElement(By.xpath("//a[@role='menuitem']//span[contains(text(),'Bags')]"));
         menuBags.click();
 
         String expectedTitle = "Bags - Gear";
