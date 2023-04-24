@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class Scenario4Action {
+public class Scenario5Action {
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -23,7 +23,7 @@ public class Scenario4Action {
     }
 
     @Test
-    public void verifyAddProduct() {
+    public void verifyDeleteProduct() throws InterruptedException {
         driver.manage().window().maximize();
         driver.navigate().to("https://magento.softwaretestingboard.com/");
 
@@ -50,7 +50,6 @@ public class Scenario4Action {
                 "Welcome,"));
 
         //add to card
-
         WebElement item = driver.findElement(By.xpath("//div[@class='product-item-details'][1]"));
         new Actions(driver).moveToElement(item).perform();
         WebElement addSize = driver.findElement(By.xpath("//div[@class='swatch-attribute size']//div[@index='0']"));
@@ -59,12 +58,26 @@ public class Scenario4Action {
         addColor.click();
         WebElement addToCart = driver.findElement(By.xpath("//div[@class='product-item-details'][1]//button[@type='submit']//span[contains(text(),'Add to Cart')]"));
         addToCart.click();
+
         wait.until(ExpectedConditions.textToBePresentInElement(
                 driver.findElement(By.xpath("//span[@class='counter-number']")),
                 "1"));
+        WebElement miniCart = driver.findElement(By.xpath("//div[@class='minicart-wrapper']"));
+        miniCart.click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title='Remove item']")));
+        WebElement remoteItem = driver.findElement(By.xpath("//a[@title='Remove item']"));
+        remoteItem.click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='action-primary action-accept']")));
+        WebElement okDeleteBtn = driver.findElement(By.xpath("//button[@class='action-primary action-accept']"));
+        okDeleteBtn.click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(
+                driver.findElement(By.xpath("//span[@class='counter-number']")),
+                "1")));
     }
     @AfterTest
     public void tearDown() {
-        driver.quit();
+        //driver.quit();
     }
 }
